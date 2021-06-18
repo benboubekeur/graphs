@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NodeStoreRequest;
+use App\Http\Resources\NodeResource;
+use App\Models\Graph;
 use App\Models\Node;
 use Illuminate\Http\Request;
 
@@ -28,20 +31,19 @@ class NodeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param NodeStoreRequest $request
+     * @param Graph $graph
+     * @return NodeResource
      */
-    public function store(Request $request)
+    public function store(NodeStoreRequest $request, Graph $graph)
     {
-        //
+        return new NodeResource($request->store());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Node  $node
+     * @param \App\Models\Node $node
      * @return \Illuminate\Http\Response
      */
     public function show(Node $node)
@@ -52,7 +54,7 @@ class NodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Node  $node
+     * @param \App\Models\Node $node
      * @return \Illuminate\Http\Response
      */
     public function edit(Node $node)
@@ -63,8 +65,8 @@ class NodeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Node  $node
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Node $node
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Node $node)
@@ -75,11 +77,13 @@ class NodeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Node  $node
+     * @param \App\Models\Node $node
      * @return \Illuminate\Http\Response
      */
     public function destroy(Node $node)
     {
-        //
+        $node->purge();
+
+        return response()->noContent();
     }
 }

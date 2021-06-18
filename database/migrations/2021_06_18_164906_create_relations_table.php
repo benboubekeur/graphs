@@ -17,6 +17,8 @@ class CreateRelationsTable extends Migration
             $table->id();
             $table->unsignedInteger('parent_id');
             $table->unsignedInteger('child_id');
+            $table->unsignedInteger('graph_id');
+            $table->unique(['parent_id', 'child_id', 'graph_id']);
         });
     }
 

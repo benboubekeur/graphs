@@ -2,84 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GraphIndexRequest;
+use App\Http\Requests\GraphUpdateRequest;
+use App\Http\Resources\GraphResource;
 use App\Models\Graph;
 use Illuminate\Http\Request;
 
 class GraphController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param GraphIndexRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(GraphIndexRequest $request)
     {
-        //
+        return GraphResource::collection($request->index());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        return new GraphResource(Graph::create());
+    }
+
+    public function show(Request $request, Graph $graph)
+    {
+        return new GraphResource($graph);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Graph  $graph
-     * @return \Illuminate\Http\Response
+     * @param GraphUpdateRequest $request
+     * @param Graph $graph
+     * @return GraphResource
      */
-    public function show(Graph $graph)
+    public function update(GraphUpdateRequest $request, Graph $graph)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Graph  $graph
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Graph $graph)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Graph  $graph
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Graph $graph)
-    {
-        //
+        $request->update();
+        return new GraphResource($graph);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Graph  $graph
+     * @param \App\Models\Graph $graph
      * @return \Illuminate\Http\Response
      */
     public function destroy(Graph $graph)
     {
-        //
+        $graph->delete();
+        return response()->noContent();
     }
 }
