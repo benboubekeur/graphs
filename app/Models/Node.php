@@ -31,7 +31,7 @@ class Node extends Model
     {
         $keys = $this->relations()->modelKeys();
 
-        self::destroy($keys);
+        Relation::destroy($keys);
 
         $this->delete();
     }
