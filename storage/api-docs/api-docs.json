@@ -1,0 +1,232 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Core API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/graphs": {
+            "get": {
+                "tags": [
+                    "Graphs"
+                ],
+                "summary": "Display list of all graphs",
+                "description": "Display list of all graphs",
+                "operationId": "getGraphsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Graphs"
+                ],
+                "summary": "Create new graph",
+                "description": "Create new graph",
+                "operationId": "createNewGraph",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GraphResource"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/graphs/{id}": {
+            "get": {
+                "tags": [
+                    "Graphs"
+                ],
+                "summary": "Get graph information",
+                "description": "Get graph information",
+                "operationId": "getGraphById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Graph id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GraphResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Graphs"
+                ],
+                "summary": "Update existing graph",
+                "description": "Returns updated graph data",
+                "operationId": "updateGraph",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Graph id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GraphUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GraphResource"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/graphs/{graph}/nodes": {
+            "get": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Create node for the graph",
+                "description": "Create node for the graph",
+                "operationId": "getProjectsList",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Node id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "GraphUpdateRequest": {
+                "title": "Update Graph request",
+                "description": "Update Graph request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "Graph": {
+                "title": "Graph",
+                "description": "Graph model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new Graph",
+                        "type": "string",
+                        "example": "A nice Graph"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "Description of the new Graph",
+                        "type": "string",
+                        "example": "This is new Graph's Graph"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "": {
+                        "title": "Deleted at",
+                        "description": "Deleted at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Graph"
+                }
+            },
+            "GraphResource": {
+                "title": "GraphResource",
+                "description": "Graph resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "GraphResource"
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -11,8 +11,21 @@ use Illuminate\Http\Request;
 class GraphController extends Controller
 {
     /**
-     * @param GraphIndexRequest $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @OA\Get(
+     *      path="/graphs",
+     *      operationId="getGraphsList",
+     *      tags={"Graphs"},
+     *      summary="Display list of all graphs",
+     *      description="Display list of all graphs",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Server Error",
+     *      ),
+     *     )
      */
     public function index(GraphIndexRequest $request)
     {
@@ -20,8 +33,22 @@ class GraphController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return GraphResource
+     * @OA\Post (
+     *      path="/graphs",
+     *      operationId="createNewGraph",
+     *      tags={"Graphs"},
+     *      summary="Create new graph",
+     *      description="Create new graph",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/GraphResource")
+     *       ),
+     *       @OA\Response(
+     *          response=500,
+     *          description="Server Error",
+     *      ),
+     *     )
      */
     public function store(Request $request)
     {
@@ -29,9 +56,27 @@ class GraphController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Graph $graph
-     * @return GraphResource
+     * @OA\Get(
+     *      path="/graphs/{id}",
+     *      operationId="getGraphById",
+     *      tags={"Graphs"},
+     *      summary="Get graph information",
+     *      description="Get graph information",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Graph id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/GraphResource")
+     *       ),
+     * )
      */
     public function show(Request $request, Graph $graph)
     {
@@ -39,9 +84,31 @@ class GraphController extends Controller
     }
 
     /**
-     * @param GraphUpdateRequest $request
-     * @param Graph $graph
-     * @return GraphResource
+     * @OA\Put(
+     *      path="/graphs/{id}",
+     *      operationId="updateGraph",
+     *      tags={"Graphs"},
+     *      summary="Update existing graph",
+     *      description="Returns updated graph data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Graph id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/GraphUpdateRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/GraphResource")
+     *       ),
+     * )
      */
     public function update(GraphUpdateRequest $request, Graph $graph)
     {
@@ -50,14 +117,31 @@ class GraphController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Graph $graph
-     * @return \Illuminate\Http\Response
+     * @OA\Delete (
+     *      path="/graphs/{id}",
+     *      operationId="deleteGraph",
+     *      tags={"Graphs"},
+     *      summary="Delete existing graph",
+     *      description="Delete graph",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Graph id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     * )
      */
     public function destroy(Graph $graph)
     {
-        $graph->delete();
+        $graph->purge();
+
         return response()->noContent();
     }
 }

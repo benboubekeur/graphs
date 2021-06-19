@@ -20,4 +20,13 @@ class Graph extends Model
     {
         return $this->hasMany(Relation::class);
     }
+
+    public function purge()
+    {
+        $this->relations->each->delete();
+
+        $this->nodes->each->delete();
+
+        $this->delete();
+    }
 }
