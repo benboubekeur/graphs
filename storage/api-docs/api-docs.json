@@ -5,6 +5,35 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/graphs/{graph}/relations": {
+            "post": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Add relations between two nodes",
+                "description": "Add relations between two nodes",
+                "operationId": "addRelationToNodes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Graph id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/graphs": {
             "get": {
                 "tags": [
@@ -118,6 +147,30 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Graphs"
+                ],
+                "summary": "Delete existing graph",
+                "description": "Delete graph",
+                "operationId": "deleteGraph",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Graph id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
             }
         },
         "/graphs/{graph}/nodes": {
@@ -133,6 +186,64 @@
                         "name": "id",
                         "in": "path",
                         "description": "Node id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/nodes/{node}": {
+            "delete": {
+                "tags": [
+                    "Nodes"
+                ],
+                "summary": "Delete node",
+                "description": "Delete node",
+                "operationId": "deleteNOde",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Node id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/relations/{relation}": {
+            "put": {
+                "tags": [
+                    "Relation"
+                ],
+                "summary": "Update node's relation",
+                "description": "Update node's relation",
+                "operationId": "updateNodeRelation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Relation id",
                         "required": true,
                         "schema": {
                             "type": "integer"

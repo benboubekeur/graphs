@@ -42,10 +42,30 @@ class NodeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Node $node
-     * @return \Illuminate\Http\Response
+     * @OA\Delete (
+     *      path="/nodes/{node}",
+     *      operationId="deleteNOde",
+     *      tags={"Nodes"},
+     *      summary="Delete node",
+     *      description="Delete node",
+     *       @OA\Parameter(
+     *          name="id",
+     *          description="Node id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Server Error",
+     *      ),
+     *     )
      */
     public function destroy(Node $node)
     {

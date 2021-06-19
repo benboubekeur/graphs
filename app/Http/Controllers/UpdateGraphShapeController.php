@@ -10,9 +10,30 @@ use Illuminate\Http\Request;
 class UpdateGraphShapeController extends Controller
 {
     /**
-     * @param UpdateGraphShapeRequest $request
-     * @param Relation $relation
-     * @return \Illuminate\Http\Response
+     * @OA\Put (
+     *      path="/relations/{relation}",
+     *      operationId="updateNodeRelation",
+     *      tags={"Relation"},
+     *      summary="Update node's relation",
+     *      description="Update node's relation",
+     *       @OA\Parameter(
+     *          name="id",
+     *          description="Relation id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Server Error",
+     *      ),
+     *     )
      */
     public function __invoke(UpdateGraphShapeRequest $request, Relation $relation)
     {
