@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class UpdateGraphShapeController extends Controller
 {
+    /**
+     * @param UpdateGraphShapeRequest $request
+     * @param Relation $relation
+     * @return \Illuminate\Http\Response
+     */
     public function __invoke(UpdateGraphShapeRequest $request, Relation $relation)
     {
         $request->update();

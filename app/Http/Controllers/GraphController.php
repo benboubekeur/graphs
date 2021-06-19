@@ -19,11 +19,20 @@ class GraphController extends Controller
         return GraphResource::collection($request->index());
     }
 
+    /**
+     * @param Request $request
+     * @return GraphResource
+     */
     public function store(Request $request)
     {
         return new GraphResource(Graph::create());
     }
 
+    /**
+     * @param Request $request
+     * @param Graph $graph
+     * @return GraphResource
+     */
     public function show(Request $request, Graph $graph)
     {
         return new GraphResource($graph);
